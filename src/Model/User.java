@@ -67,14 +67,12 @@ public class User {
         return null;
     }
 
-    // Method to get a user by email and password
-    public static User getUser(String pass, String userEmail) throws SQLException {
+    public static User getUser(String userEmail) throws SQLException {
         Connection conn = DB.getConnection();
         if (conn != null) {
-            String query = "SELECT * FROM usuario WHERE email_usuario = ? AND senha_usuario = ?";
+            String query = "SELECT * FROM usuario WHERE email_usuario = ?";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, userEmail);
-            stmt.setString(2, pass);
             ResultSet result = stmt.executeQuery();
             if (result.next()) {
                 User user = new User(

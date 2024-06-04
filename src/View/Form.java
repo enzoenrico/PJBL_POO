@@ -1,8 +1,8 @@
 package View;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
 public class Form extends JPanel {
     private JTextField firstnameField;
@@ -29,9 +29,8 @@ public class Form extends JPanel {
         viewButton = new JButton("View All Users");
         viewButton.setPreferredSize(new Dimension(278, 40));
 
-        // space between fields
         Insets fieldsInset = new Insets(0, 0, 10, 0);
-        // space between buttons
+
         Insets buttonInset = new Insets(20, 0, 0, 0);
 
         // uses Grid Bag Layout
@@ -80,6 +79,7 @@ public class Form extends JPanel {
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
+
         add(passwordLabel, gridBagConstraints);
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
@@ -123,7 +123,6 @@ public class Form extends JPanel {
         viewButton.addActionListener(actionListener);
     }
 
-    // reset fields
     public void reset(boolean bln) {
         if (bln) {
             firstnameField.setText("");

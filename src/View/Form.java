@@ -55,7 +55,6 @@ public class Form extends JPanel {
         gridBagConstraints.anchor = GridBagConstraints.WEST;
 
         add(lastnameLabel, gridBagConstraints);
-
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
 
@@ -103,7 +102,7 @@ public class Form extends JPanel {
         return firstnameField.getText();
     }
 
-    public String getLastname() {
+    public String getEmail() {
         return lastNameField.getText();
     }
 

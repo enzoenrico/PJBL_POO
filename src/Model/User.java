@@ -53,7 +53,6 @@ public class User {
                 List<User> userList = new ArrayList<>();
                 while (result.next()) {
                     User user = new User(
-                            result.getInt("id_usuario"),
                             result.getString("nome_usuario"),
                             result.getString("email_usuario"),
                             result.getString("telefone_usuario"));
@@ -76,7 +75,6 @@ public class User {
             ResultSet result = stmt.executeQuery();
             if (result.next()) {
                 User user = new User(
-                        result.getInt("id_usuario"),
                         result.getString("nome_usuario"),
                         result.getString("email_usuario"),
                         result.getString("telefone_usuario"));
@@ -90,7 +88,7 @@ public class User {
     public static boolean setUser(User user) throws SQLException {
         Connection conn = DB.getConnection();
         if (conn != null) {
-            String query = "INSERT INTO usuario (id_usuario, nome_usuario, email_usuario, telefone_usuario, senha_usuario) VALUES (?, ?, ?, ?, ?)";
+            String query = "INSERT INTO usuario (id_usuario, nome_usuario, email_usuario, telefone_usuario, senha_usuario) VALUES ()";
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setInt(1, user.getId());
             stmt.setString(2, user.getName());

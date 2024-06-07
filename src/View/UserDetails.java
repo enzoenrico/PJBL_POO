@@ -1,8 +1,11 @@
 package View;
 
+import Model.DB;
 import Model.User;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import javax.swing.*;
@@ -30,18 +33,43 @@ public class UserDetails extends JPanel {
     }
 
     public void getUsers(ArrayList<User> objects) {
-        DefaultTableModel defaultTableModel = (DefaultTableModel) userTable.getModel();
-        defaultTableModel.setColumnIdentifiers(userTableColumn);
-        int i = 0;
-        while (i < objects.size()) {
-            try {
-                User[] tmp = new User[] { User.getUser(objects.get(i).getEmail()) };
-                defaultTableModel.addRow(tmp);
-            } catch (SQLException e) {
-                // Handle the SQLException here
-                e.printStackTrace();
+        try {
+            PreparedStatement getUsersQuery = DB.getConnection().prepareStatement("SELECT * FROM usuario");
+            ResultSet rs = getUsersQuery.executeQuery();
+
+            // Column Names
+            String[] columnNames = { "First Name", "Email", "Phone", "Password" };
+
+            // Create a list to hold users
+            ArrayList<User> users = new ArrayList<>();
+
+            // Process the result set
+            while (rs.next()) {
+                String firstname = rs.getString("nome_usuario");
+                String email = rs.getString("email_usuario");
+                String phone = rs.getString("telefone_usuario");
+
+                // Create a user and add it to the list
+                users.add(new User(firstname, email, phone));
             }
-            i++;
+
+            // Data
+            Object[][] data = new Object[users.size()][4];
+            for (int i = 0; i < users.size(); i++) {
+                data[i][0] = users.get(i).getName();
+                data[i][1] = users.get(i).getEmail();
+                data[i][2] = users.get(i).getTelephone();
+            }
+
+            // Create Table Model
+            DefaultTableModel model = new DefaultTableModel(data, columnNames);
+
+            // Set Model to userTable
+            userTable.setModel(model);
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 

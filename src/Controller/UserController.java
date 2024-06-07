@@ -21,20 +21,22 @@ public class UserController {
         // submit user
         this.form.submitUsers(e -> {
             String firstname = this.form.getFirstname().trim();
-            String lastname = this.form.getLastname().trim();
+            String email = this.form.getEmail().trim();
+            String phone = this.form.getPhone().trim();
+            String passwd = this.form.getPassword().trim();
 
             // simple validations
             if (firstname.isEmpty()) {
                 JOptionPane.showMessageDialog(this.form, "First Name Required.", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
-            } else if (lastname.isEmpty()) {
+            } else if (email.isEmpty()) {
                 JOptionPane.showMessageDialog(this.form, "Last Name Required.", "Error",
                         JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            DB.addUser("teste", "teste@teste.dev", "123456", "1234567890");
+            DB.addUser(firstname, email, phone, passwd);
             this.form.reset(true);
         });
 
